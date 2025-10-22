@@ -1,0 +1,147 @@
+// .actas-main-container {
+//     padding: 30px 20px;
+// }
+
+// .actas-header {
+//     display: flex;
+//     align-items: center;
+//     margin-bottom: 24px;
+
+//     h2,
+//     h1 {
+//         color: #2e7d32;
+//         margin: 0;
+//     }
+// }
+
+// .actas-table-list {
+//     background: #fff;
+//     border-radius: 12px;
+//     box-shadow: 0 2px 10px #0001;
+//     overflow: hidden;
+//     font-size: 15px;
+// }
+
+// .actas-table-row {
+//     display: grid;
+//     grid-template-columns: 1.5fr 1.2fr 1.2fr 1fr 0.9fr;
+//     align-items: center;
+//     padding: 16px 18px;
+//     border-bottom: 1px solid #eef2f3;
+//     gap: 0 10px;
+
+//     @media (max-width: 512px) {
+//         grid-template-columns: 1fr 1fr 1fr;
+//         font-size: 12px;
+//         padding: 10px;
+//     }
+// }
+
+// .actas-table-header {
+//     background: #f0f4f8;
+//     font-weight: 600;
+// }
+
+// .generar-acta-btn {
+//     padding: 8px 18px;
+//     border: none;
+//     border-radius: 6px;
+//     background: #2e7d32;
+//     color: #fff;
+//     font-weight: 600;
+//     cursor: pointer;
+//     transition: background 0.18s;
+
+//     &:hover {
+//         background: #205619;
+//     }
+// }
+
+.actas-main-container {
+  /* padding fluido */
+  padding: clamp(14px, 4vw, 30px) clamp(10px, 3.5vw, 20px);
+}
+
+.actas-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: clamp(14px, 3.5vw, 24px);
+
+  h2,
+  h1 {
+    color: #2e7d32; /* se conserva */
+    margin: 0;
+    /* tamaño fluido sin cambiar color */
+    font-size: clamp(20px, 4.2vw, 28px);
+    line-height: 1.15;
+  }
+}
+
+.actas-table-list {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #0001;
+  overflow: hidden;
+  font-size: clamp(14px, 2.8vw, 15px);
+}
+
+/* ===== Fila (desktop → mobile-first con breakpoints) ===== */
+.actas-table-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1.2fr 1.2fr 1fr 0.9fr; /* desktop */
+  align-items: center;
+  padding: clamp(12px, 2.6vw, 16px) clamp(12px, 2.8vw, 18px);
+  border-bottom: 1px solid #eef2f3;
+  gap: 0 10px;
+
+  /* tablets medianas */
+  @media (max-width: 900px) {
+    grid-template-columns: 1.2fr 1fr 1fr 0.9fr;
+  }
+
+  /* tablets chicas */
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr 1fr 0.9fr;
+  }
+
+  /* móviles: se “cardifica” la fila (apila columnas) */
+  @media (max-width: 512px) {
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+    font-size: 12px;
+    padding: 10px;
+
+    /* Cada celda como fila con etiqueta + valor.
+       Asume markup tipo: <div class="actas-table-row"><div data-label="Título">...</div>...</div>
+       Si tus nodos son diferentes, apunta al selector específico. */
+    & > * {
+      display: grid;
+      grid-template-columns: 42% 1fr; /* etiqueta | valor */
+      column-gap: 8px;
+      align-items: start;
+    }
+
+    & > *::before {
+      content: attr(data-label);
+      font-weight: 600;
+      /* sin cambiar color: solo énfasis por opacidad */
+      opacity: .85;
+      /* asegura que la etiqueta no se parta feo */
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  }
+}
+
+/* Encabezado */
+.actas-table-header {
+  background: #f0f4f8; /* se conserva */
+  font-weight: 600;
+
+  /* En móvil ocultamos el header porque cada celda ya muestra su “data-label” */
+  @media (max-width: 512px) {
+    display: none;
+  }
+}
+
+

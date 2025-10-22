@@ -1,0 +1,76 @@
+.actas-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+
+    .actas-table {
+        width: 100%;
+        min-width: 768px; // Forces horizontal scroll in small screens
+
+        .no-audio {
+            color: #999;
+        }
+
+        .status {
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+
+            &.generated {
+                color: #388e3c;
+            }
+
+            &.pending {
+                color: #d84315;
+            }
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            .ui.button {
+                flex: 1 1 auto;
+            }
+        }
+    }
+}
+
+/* Mobile optimization */
+@media screen and (max-width: 512px) {
+    .actas-table-wrapper {
+        .action-buttons {
+            flex-direction: column;
+
+            .ui.button {
+                width: 100%;
+            }
+        }
+    }
+}       
+
+/* Botón acción */
+.generar-acta-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #2e7d32; /* se conserva */
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+  line-height: 1;
+  min-height: 40px;          /* tap confortable */
+  font-size: clamp(13px, 2.7vw, 15px);
+
+  &:hover {
+    background: #205619;     /* se conserva */
+  }
+
+  /* En pantallas muy pequeñas, ancho completo para mejor UX */
+  @media (max-width: 360px) {
+    width: 100%;
+  }
+}

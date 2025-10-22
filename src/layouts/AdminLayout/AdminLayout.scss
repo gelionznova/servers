@@ -1,0 +1,75 @@
+// .admin-layout {
+//   display: flex;
+//   height: 100vh;
+
+//   // Menú lateral ocupa todo el alto
+//   .side-menu-admin {
+//     width: 220px;
+//     min-width: 220px;
+//     background: #31730e;
+//     height: 100vh;
+//     position: fixed; // Opcional si quieres que sea fijo
+//     left: 0;
+//     top: 0;
+//     z-index: 10;
+//   }
+
+//   .admin-layout__main-content {
+//     flex: 1;
+//     margin-left: 220px; // Debe ser igual al ancho del side-menu
+//     padding: 24px 32px;
+//     background: #f4f6f8;
+//     min-height: 100vh;
+//   }
+// }
+
+/* Asegúrate de tener las variables globales importadas/al alcance */
+:root {
+  --sidebar-expanded: 260px;
+  --sidebar-collapsed: 80px;
+  --sidebar-mobile: 320px;
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar fijo a la izquierda */
+.admin-layout .side-menu-admin {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-expanded);
+  min-width: var(--sidebar-expanded);
+  height: 100vh;
+  z-index: 10;
+}
+
+/* Estado colapsado */
+.admin-layout .side-menu-admin.collapsed {
+  width: var(--sidebar-collapsed);
+  min-width: var(--sidebar-collapsed);
+}
+
+/* Área principal se desplaza según el ancho actual del sidebar */
+.admin-layout .admin-layout__main-content {
+  flex: 1;
+  min-width: 0;
+  margin-left: var(--sidebar-expanded);
+  padding: 24px 32px;
+  transition: margin-left 220ms ease;
+}
+
+/* Cuando el sidebar está colapsado, ajusta el margen */
+.admin-layout .side-menu-admin.collapsed + .admin-layout__main-content {
+  margin-left: var(--sidebar-collapsed);
+}
+
+/* En móvil, el sidebar es overlay: el contenido no debe moverse */
+@media (max-width: 512px) {
+  .admin-layout .admin-layout__main-content {
+    margin-left: 0;
+    padding: 16px;
+  }
+}
+

@@ -1,0 +1,84 @@
+.table-users-admin {
+  td {
+    &.status {
+      .icon {
+        &.close {
+          color: #f00;
+        }
+        &.check {
+          color: #008000;
+        }
+      }
+    }
+  }
+}
+
+/* ===== TableUsers: responsive sin tocar colores ===== */
+
+.table-users-admin {
+  width: 100%;
+  table-layout: auto;
+  font-size: clamp(14px, 2.8vw, 15px);
+
+  th, td {
+    padding: clamp(10px, 2.6vw, 14px) !important;
+    vertical-align: top;
+  }
+
+  /* Emails no rompan layout */
+  td:nth-child(2) { word-break: break-word; }
+
+  /* Iconos de estado centrados y con buen tap */
+  .status {
+    text-align: center;
+    i.icon { margin: 0; }
+  }
+
+  /* Acciones: buen área táctil */
+  .actions-cell .button {
+    min-height: 40px;
+  }
+
+  /* === Cardificación en móvil === */
+  @media (max-width: 512px) {
+    thead { display: none; }
+
+    tbody tr {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: clamp(8px, 2.4vw, 12px);
+      border-bottom-width: 1px; /* respeta colores existentes */
+    }
+
+    tbody td {
+      display: grid !important;
+      grid-template-columns: 42% 1fr;
+      gap: 8px;
+    }
+    tbody td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      font-size: clamp(12px, 2.4vw, 14px);
+      opacity: .85; /* sin cambiar color */
+      white-space: nowrap;
+    }
+
+    /* Columna de acciones a una sola columna */
+    .actions-cell {
+      grid-template-columns: 1fr !important;
+      display: flex !important;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .actions-cell .button { flex: 1 1 auto; }
+  }
+
+  /* Muy pequeño: botones full width para comodidad */
+  @media (max-width: 360px) {
+    .actions-cell { justify-content: stretch; }
+    .actions-cell .button { width: 100%; }
+  }
+}
+

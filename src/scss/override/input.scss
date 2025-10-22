@@ -1,0 +1,89 @@
+/* =========================================================
+   input.scss — Responsive, accesible y mobile-first
+   ========================================================= */
+
+/* === Tokens y helpers (locales al archivo) === */
+$radius: clamp(8px, 1.6vw, 14px);
+$control-height: clamp(40px, 6.5vh, 52px);
+$padding-x: clamp(12px, 3.5vw, 20px);
+$font-base: clamp(14px, 2.9vw, 16px);
+$font-sm: clamp(12px, 2.5vw, 14px);
+
+$breakpoints: (
+  xs: 360px,
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+@mixin respond-to($bp) {
+  $size: map-get($breakpoints, $bp);
+  @if $size {
+    @media (max-width: #{$size}) { @content; }
+  }
+}
+
+/* === Estilo del contenedor e input === */
+.ui.input {
+  width: 100%;
+
+  input {
+    background-color: #f1f1f1 !important;
+    border: 1px solid #f1f1f1 !important;
+    border-radius: $radius !important;
+    min-height: $control-height !important;
+    padding-inline: $padding-x !important;
+    padding-block: 0 !important;
+    font-size: $font-base !important;
+    width: 100% !important;
+    line-height: 1.2 !important;
+    box-shadow: none !important; /* limpio y consistente */
+
+    &:focus {
+      background-color: #fff !important;
+      border-color: color-mix(in oklab, #0098d3, #ffffff 30%) !important;
+      outline: 2px solid color-mix(in oklab, #0098d3, #ffffff 30%) !important;
+      outline-offset: 2px !important;
+      box-shadow: 0 0 0 4px color-mix(in oklab, #0098d3 20%, transparent) !important;
+    }
+
+    &::placeholder {
+      color: #8a8a8a !important;
+      font-size: $font-sm !important;
+    }
+  }
+
+  /* En XS fuerza layout en bloque sin desbordes */
+  @include respond-to(xs) {
+    display: block;
+    input { width: 100% !important; }
+  }
+}
+
+/* Estados opcionales (Semantic UI-style) */
+.ui.input.error input {
+  border-color: #ef4444 !important;
+  background-color: color-mix(in oklab, #ef4444, white 92%) !important;
+}
+.ui.input.success input {
+  border-color: #22c55e !important;
+  background-color: color-mix(in oklab, #22c55e, white 92%) !important;
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .ui.input input {
+    background-color: #0f172a !important;
+    border-color: #0f172a !important;
+    color: #e5e7eb !important;
+
+    &::placeholder { color: #9ca3af !important; }
+    &:focus {
+      background-color: #0b1220 !important;
+      border-color: #60a5fa !important;
+      outline-color: #60a5fa !important;
+      box-shadow: 0 0 0 3px color-mix(in oklab, #60a5fa 25%, transparent) !important;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+/* =========================================================
+   button.scss — Responsive, accesible y touch-friendly
+   ========================================================= */
+
+/* === Tokens y helpers (locales al archivo) === */
+$radius: clamp(8px, 1.6vw, 14px);
+$control-height: clamp(40px, 6.5vh, 52px);
+$padding-x: clamp(12px, 3.5vw, 20px);
+$gap: clamp(6px, 1.6vw, 12px);
+$font-base: clamp(14px, 2.9vw, 16px);
+
+$breakpoints: (
+  xs: 360px,
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+@mixin respond-to($bp) {
+  $size: map-get($breakpoints, $bp);
+  @if $size {
+    @media (max-width: #{$size}) { @content; }
+  }
+}
+
+@mixin motion-ok { @media (prefers-reduced-motion: no-preference) { @content; } }
+@mixin motion-reduce { @media (prefers-reduced-motion: reduce) { @content; } }
+
+/* === Estilo del botón === */
+.ui.primary.button {
+  /* Variables CSS para temas */
+  --btn-bg: #0098d3;
+  --btn-bg-hover: #0088bd;
+  --btn-bg-active: #0077a6;
+  --btn-fg: #fff;
+
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  border-radius: $radius;
+  min-height: $control-height;
+  padding-inline: $padding-x;
+  padding-block: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+  font-size: $font-base;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  @include motion-ok {
+    transition: background-color .2s ease, box-shadow .2s ease, transform .08s ease;
+  }
+  @include motion-reduce { transition: none; }
+
+  /* Hover solo en puntero fino (evita “pegajosidad” en touch) */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { background-color: var(--btn-bg-hover); }
+  }
+
+  &:active { background-color: var(--btn-bg-active); transform: translateY(1px) scale(.99); }
+
+  &:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--btn-bg), white 35%);
+    outline-offset: 2px;
+  }
+
+  /* En móviles muy pequeños: ancho completo */
+  @include respond-to(xs) {
+    width: 100%;
+  }
+}
+
+/* Modo oscuro (opcional) */
+@media (prefers-color-scheme: dark) {
+  .ui.primary.button {
+    --btn-bg: #1e88e5;
+    --btn-bg-hover: #1976d2;
+    --btn-bg-active: #1565c0;
+    --btn-fg: #f8fafc;
+  }
+}

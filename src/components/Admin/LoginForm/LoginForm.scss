@@ -1,0 +1,289 @@
+/* =========================================================
+   LoginForm.scss — Pro + Responsive
+   ========================================================= */
+
+/* ===== Escalas fluidas y variables ===== */
+:root {
+  --radius: 16px;
+  --card-max: 460px;
+
+  /* Tipografía fluida */
+  --fs-base: clamp(14px, 1.7vw, 16px);
+  --fs-sm: clamp(12px, 1.4vw, 14px);
+  --fs-lg: clamp(16px, 2vw, 18px);
+  --line: 1.45;
+
+  /* Alturas táctiles */
+  --h-input: clamp(44px, 6.2vw, 46px);
+  --h-btn: clamp(44px, 6.5vw, 48px);
+
+  /* Fondo */
+  --bg-1: #0b1020;
+  --bg-2: #0b0f18;
+
+  /* Accents */
+  --accent: #34d399;
+  --accent-strong: #10b981;
+  --text: #e8eefc;
+  --text-dim: #9fb0d8;
+  --text-muted: #a8b3cf;
+}
+
+/* Breakpoints */
+$xs: 360px;
+$sm: 480px;
+$md: 768px;
+$lg: 1024px;
+
+/* ===== Página ===== */
+.login-page {
+  min-height: 100svh; /* mejor en móviles que 100vh */
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 40px);
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  padding-bottom: max(clamp(16px, 3vw, 40px), env(safe-area-inset-bottom));
+  background:
+    radial-gradient(1200px 600px at 10% 0%, rgba(52, 211, 153, 0.08), transparent 50%),
+    radial-gradient(1000px 500px at 100% 100%, rgba(59, 130, 246, 0.08), transparent 50%),
+    linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: clamp(420px, 45vmax, 900px);
+    height: clamp(420px, 45vmax, 900px);
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  &::before {
+    left: -15vmax;
+    top: -15vmax;
+    background: radial-gradient(circle at 30% 30%, rgba(52, 211, 153, 0.12), transparent 60%);
+  }
+  &::after {
+    right: -18vmax;
+    bottom: -18vmax;
+    background: radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.12), transparent 60%);
+  }
+}
+
+/* ===== Tarjeta (glass) ===== */
+.login-card {
+  width: min(var(--card-max), 92vw);
+  background: color-mix(in srgb, #111928 55%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: clamp(20px, 4vw, 32px);
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  line-height: var(--line);
+
+  .login-title {
+    color: var(--text) !important;
+    margin-bottom: clamp(10px, 2vw, 16px);
+    font-size: var(--fs-lg);
+
+    .sub.header {
+      color: var(--text-dim) !important;
+      margin-top: 4px;
+      font-size: var(--fs-sm);
+    }
+    i.icon {
+      color: var(--accent);
+    }
+  }
+
+  .login-form-admin {
+    margin-top: 6px;
+    font-size: var(--fs-base);
+
+    .field { margin-bottom: clamp(10px, 2vw, 14px); }
+
+    .ui.input > input,
+    .ui.form input[type="text"],
+    .ui.form input[type="email"],
+    .ui.form input[type="password"] {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      color: var(--text) !important;
+      height: var(--h-input);
+      border-radius: 12px;
+      transition: box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+      font-size: var(--fs-base);
+
+      &::placeholder { color: var(--text-muted); }
+
+      &:focus {
+        outline: none;
+        border-color: color-mix(in srgb, var(--accent) 55%, transparent) !important;
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+      }
+    }
+
+    .ui.left.icon.input > i.icon {
+      color: var(--text-dim) !important;
+      opacity: 0.9;
+    }
+
+    .ui.form .field .ui.pointing.label {
+      background: transparent !important;
+      color: #ffb4b4 !important;
+      border: none !important;
+      padding-left: 6px;
+      font-size: var(--fs-sm);
+    }
+
+    .login-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 4px 0 clamp(10px, 2vw, 14px);
+
+      .ui.checkbox label { color: #c9d5f0; font-size: var(--fs-sm); }
+
+      .link-button {
+        background: none;
+        border: none;
+        color: #93c5fd;
+        padding: 0;
+        cursor: pointer;
+        font: inherit;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-size: var(--fs-sm);
+
+        &:hover { text-decoration-thickness: 2px; }
+      }
+    }
+
+    .ui.primary.button {
+      height: var(--h-btn);
+      border-radius: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      background-image: linear-gradient(135deg, var(--accent), var(--accent-strong)) !important;
+      border: 1px solid color-mix(in srgb, var(--accent-strong) 50%, transparent) !important;
+
+      &:hover { filter: brightness(1.02); transform: translateY(-0.5px); }
+      &:active { transform: translateY(0); }
+    }
+  }
+
+  .brand-footer {
+    margin-top: clamp(12px, 2.2vw, 18px);
+    font-size: var(--fs-sm);
+    color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    i.icon { color: var(--accent); }
+  }
+}
+
+/* ===== Utilidades ===== */
+.mt-12 { margin-top: 12px !important; }
+
+/* =========================================================
+   Responsivo: XS / SM / MD / LG
+   ========================================================= */
+
+/* XS: ≤ 360px — maximiza legibilidad y tactilidad */
+@media (max-width: #{$xs}) {
+  .login-card {
+    border-radius: 12px;
+    padding: 16px;
+    width: min(96vw, 420px);
+  }
+  .login-page { padding: 12px; }
+  .login-card .login-form-admin .login-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    .link-button { align-self: flex-start; }
+  }
+}
+
+/* SM: ≤ 480px — inputs a 100%, reducción de blur para rendimiento */
+@media (max-width: #{$sm}) {
+  .login-card { width: 94vw; }
+  .login-page::before,
+  .login-page::after { filter: blur(28px); }
+}
+
+/* MD: ≤ 768px — tipografía y espaciados un poco más grandes */
+@media (max-width: #{$md}) {
+  :root {
+    --fs-base: clamp(14px, 2.2vw, 16px);
+    --fs-lg: clamp(16px, 2.6vw, 18px);
+  }
+  .login-card { width: 88vw; }
+}
+
+/* LG: ≤ 1024px — tarjeta un poco más ancha, pero controlada */
+@media (max-width: #{$lg}) {
+  .login-card { width: min(520px, 90vw); }
+}
+
+/* =========================================================
+   Modo claro (opcional si tu app soporta theme)
+   ========================================================= */
+@media (prefers-color-scheme: light) {
+  .login-page {
+    background:
+      radial-gradient(900px 450px at 10% 0%, rgba(52, 211, 153, 0.08), transparent 50%),
+      radial-gradient(800px 400px at 100% 100%, rgba(59, 130, 246, 0.08), transparent 50%),
+      linear-gradient(180deg, #f8fafc, #eef2f7);
+  }
+  .login-card {
+    background: rgba(255, 255, 255, 0.7);
+    color: #0f172a;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    .login-title { color: #0f172a !important; }
+    .login-title .sub.header { color: #4b5563 !important; }
+
+    .login-form-admin {
+      .ui.input > input,
+      .ui.form input[type="text"],
+      .ui.form input[type="email"],
+      .ui.form input[type="password"] {
+        background: rgba(15, 23, 42, 0.03) !important;
+        border: 1px solid rgba(15, 23, 42, 0.1) !important;
+        color: #0f172a !important;
+
+        &::placeholder { color: #6b7280; }
+      }
+
+      .ui.left.icon.input > i.icon { color: #64748b !important; }
+    }
+
+    .brand-footer { color: #64748b; }
+  }
+}
+
+/* =========================================================
+   Accesibilidad y rendimiento
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .login-card,
+  .login-form-admin .ui.primary.button {
+    transition: none !important;
+  }
+  .login-page::before,
+  .login-page::after { filter: blur(16px); }
+}

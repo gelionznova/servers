@@ -1,0 +1,211 @@
+/* ===== Layout base ===== */
+.login-admin {
+  min-height: 80svh;
+  display: grid;
+  grid-template-columns: 1fr minmax(340px, 560px);
+  background: linear-gradient(135deg, #0b1020 0%, #0b0f18 100%);
+  color: #e8eefc;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Panel visual (izquierda en desktop) ===== */
+.login-admin__hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 4vw, 48px);
+
+  @media (max-width: 900px) {
+    display: none; /* Ocultamos en móvil para priorizar performance */
+  }
+}
+
+.hero__gradient {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(1000px 600px at 20% 10%, rgba(52,211,153,.14), transparent 55%),
+    radial-gradient(900px 520px at 90% 90%, rgba(59,130,246,.14), transparent 55%);
+  filter: blur(20px);
+}
+
+.hero__content {
+  position: relative;
+  text-align: left;
+  max-width: 560px;
+  z-index: 1;
+
+  h2 { font-size: clamp(24px, 3vw, 32px); margin: 0 0 8px; }
+  p  { font-size: clamp(14px, 1.6vw, 16px); color: #a9b6db; margin: 0; }
+}
+
+/* ===== Panel del formulario ===== */
+.login-admin__content {
+  display: grid;
+  place-items: center;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+           max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+/* Tarjeta contenedora del login */
+.login-admin__card {
+  width: min(92vw, 520px);
+  background: rgba(17, 25, 40, 0.55);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: clamp(0px, 2vw, 14px);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* Encabezado dentro del card (no el h1 del body) */
+.login-admin__header {
+  margin-bottom: 10px;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: clamp(20px, 2.6vw, 24px);
+    line-height: 1.2;
+  }
+  p {
+    margin: 0;
+    color: #9fb0d8;
+    font-size: clamp(13px, 1.6vw, 14px);
+  }
+}
+
+.login-admin__footer {
+  margin-top: 14px;
+  color: #9fb0d8;
+  font-size: 12.5px;
+  text-align: center;
+}
+
+/* ===== Ajustes responsivos adicionales ===== */
+@media (max-width: 480px) {
+  .login-admin__card { width: 94vw; border-radius: 14px; padding: 18px; }
+}
+
+/* ===== Mobile first: ≤ 480px ===== */
+@media (max-width: 480px) {
+  /* Oculta el panel hero si no lo hiciste ya y enfoca el formulario */
+  .login-admin__hero { display: none !important; }
+
+  /* Card más ancho y con padding compacto */
+  .login-admin__card,
+  .login-card {
+    width: 96vw !important;
+    padding: 16px 14px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 18px 48px rgba(0,0,0,.35);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Títulos más compactos */
+  .login-admin__header h1,
+  .login-card .login-title { font-size: 18px !important; margin-bottom: 6px !important; }
+  .login-admin__header p,
+  .login-card .login-title .sub.header { font-size: 13px !important; }
+
+  /* Campos más grandes y legibles */
+  .login-form-admin .field { margin-bottom: 10px !important; }
+
+  .login-form-admin .ui.input > input,
+  .login-form-admin .ui.form input[type="text"],
+  .login-form-admin .ui.form input[type="email"],
+  .login-form-admin .ui.form input[type="password"] {
+    height: 50px !important;              /* tactilidad */
+    font-size: 16px !important;            /* evita zoom iOS */
+    border-radius: 12px !important;
+  }
+
+  /* Icono más visible dentro del input */
+  .login-form-admin .ui.left.icon.input > i.icon {
+    font-size: 1.05rem !important;
+    opacity: .95;
+  }
+
+  /* Checkbox más fácil de pulsar */
+  .login-form-admin .ui.checkbox input ~ label {
+    padding-left: 28px !important;
+    line-height: 22px !important;
+    font-size: 14px !important;
+  }
+  .login-form-admin .ui.checkbox input,
+  .login-form-admin .ui.checkbox .box:before,
+  .login-form-admin .ui.checkbox .box:after,
+  .login-form-admin .ui.checkbox label:before,
+  .login-form-admin .ui.checkbox label:after { transform: scale(1.15); }
+
+  /* Enlace “Olvidaste…” con mayor área de toque */
+  .login-form-admin .link-button {
+    font-size: 14px !important;
+    padding: 6px 0 !important;
+  }
+
+  /* Botón CTA grande y full width */
+  .login-form-admin .ui.primary.button {
+    height: 52px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+  }
+
+  /* Pie de marca compacto */
+  .login-admin__footer,
+  .login-card .brand-footer { font-size: 12.5px !important; }
+}
+/* ====== Media animada detrás del título ====== */
+.login-admin__hero {
+  position: relative;
+  isolation: isolate; /* que z-index funcione sin afectar al resto */
+  overflow: hidden;
+
+  /* Capa GIF (debajo del gradiente y del contenido) */
+  &::before {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: 0; /* fondo más bajo */
+    background: url("../../../../public/media/data.gif") center / cover no-repeat;
+    opacity: .32;                 /* legibilidad del texto */
+    mix-blend-mode: screen;       /* integra con el fondo oscuro */
+    filter: saturate(1.1) contrast(1.05) brightness(1.05);
+    transform: translateZ(0);     /* acelera en algunos navegadores */
+    will-change: opacity, transform;
+  }
+
+  /* Tu gradiente existente debe ir por encima del GIF */
+  .hero__gradient { z-index: 1; }
+
+  /* Texto encima de todo */
+  .hero__content { 
+    position: relative; 
+    z-index: 2; 
+    /* sutil glass para leer perfecto sobre el GIF */
+    background: linear-gradient( to bottom right,
+                  rgba(11,16,32,0.18), rgba(11,16,32,0.06) );
+    border-radius: 14px;
+    padding: clamp(12px, 2.2vw, 18px);
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* ====== Responsivo: no gastes recursos en móvil ====== */
+@media (max-width: 900px) {
+  .login-admin__hero { display: none !important; }
+}
+
+/* ====== Accesibilidad: usuarios con reduced-motion ====== */
+@media (prefers-reduced-motion: reduce) {
+  .login-admin__hero::before {
+    /* cambia el GIF por un fotograma estático si lo tienes */
+    background: url("../../../../public/media/data.gif") center / cover no-repeat;
+  }
+}
+
