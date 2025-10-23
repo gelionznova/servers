@@ -195,18 +195,158 @@
     .user-email { font-size: .78rem; color: var(--sidebar-text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   }
 
-  .user-dropdown-menu {
-    position: absolute; top: 88px; left: 16px; right: 16px;
-    background: var(--sidebar-bg-2);
-    border: 1px solid var(--sidebar-border);
-    border-radius: 12px;
-    box-shadow: var(--shadow-1);
-    overflow: hidden; animation: ddIn var(--transition); z-index: 10;
+  /* =========================
+   Dropdown de usuario mejorado
+   ========================= */
+.user-dropdown-menu {
+  position: absolute;
+  top: 84px;           /* un poco más cerca del avatar */
+  left: 12px;
+  right: 12px;
+  z-index: 100;        /* encima de la sidebar */
+  background: color-mix(in srgb, var(--sidebar-bg-2) 92%, transparent);
+  border: 1px solid var(--sidebar-border);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ddIn .14s ease-out both;
 
-    .item { color: var(--sidebar-text) !important; padding: 12px 14px !important; border-bottom: 1px solid rgba(255,255,255,.06);
-            &:hover { background: rgba(255,255,255,.06) !important; } }
-    .divider { margin: 0 !important; border-top: 1px solid rgba(255,255,255,.08) !important; }
+  /* “Flecha” hacia el avatar */
+  &::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 24px;        /* ajusta según la posición del avatar */
+    width: 12px; height: 12px;
+    background: inherit;
+    border-left: 1px solid var(--sidebar-border);
+    border-top: 1px solid var(--sidebar-border);
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 6px rgba(0,0,0,.06);
   }
+
+  /* Items Semantic UI */
+  .item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    min-height: 42px;
+    padding: 10px 14px !important;
+    color: var(--sidebar-text) !important;
+    text-decoration: none !important;     /* quita subrayados */
+    border: 0 !important;
+    line-height: 1.2;
+    letter-spacing: .15px;
+
+    /* Icono a la izquierda */
+    i.icon {
+      margin: 0 !important;
+      font-size: 1.02rem;
+      opacity: .9;
+      flex: 0 0 auto;
+    }
+
+    /* Texto */
+    span, & { 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Hover / Active */
+    &:hover {
+      background: rgba(255,255,255,.07) !important;
+      color: #fff !important;
+    }
+    &.active {
+      background: rgba(255,255,255,.12) !important;
+    }
+
+    /* Foco accesible con teclado */
+    &:focus-visible {
+      outline: 2px solid #9ad0ff;
+      outline-offset: -2px;
+      border-radius: 10px;
+    }
+  }
+
+  /* Separador “real” (usando <Divider fitted/>) */
+  .divider {
+    margin: 0 !important;
+    border-top: 1px solid rgba(255,255,255,.10) !important;
+  }
+
+  /* Soporte para temas claros */
+  @media (prefers-color-scheme: light) {
+    background: color-mix(in srgb, #ffffff 92%, transparent);
+    .item {
+      color: #1c1c1c !important;
+      &:hover { background: rgba(0,0,0,.06) !important; }
+      &.active { background: rgba(0,0,0,.10) !important; }
+      &:focus-visible { outline-color: #2b7cff; }
+    }
+    .divider { border-top-color: rgba(0,0,0,.10) !important; }
+  }
+}
+
+/* Micro-animación de entrada */
+@keyframes ddIn {
+  from { opacity: 0; transform: translateY(-6px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Respeta usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .user-dropdown-menu { animation: none; }
+}
+
+/* Ajustes finos para el header de usuario para que todo “encaje” */
+.user-section {
+  position: relative;
+
+  .user-avatar-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    width: 100%;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--sidebar-bg-2) 88%, transparent);
+    border: 1px solid var(--sidebar-border);
+    transition: box-shadow .15s ease, transform .15s ease;
+    text-align: left;
+
+    &:hover { box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+    &:active { transform: translateY(1px); }
+
+    .user-avatar-image,
+    .user-avatar-initials {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 14px;
+      background: rgba(255,255,255,.15);
+    }
+
+    /* punto online */
+    .online-status {
+      position: absolute;
+      right: 12px; top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, .2);
+    }
+  }
+}
+
 }
 
 @keyframes ddIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }

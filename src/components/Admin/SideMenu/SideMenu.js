@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Menu, Icon, Image, Popup, Label } from "semantic-ui-react";
+import { Menu, Icon, Image, Popup, Label, Divider } from "semantic-ui-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../hooks";
 import SenaLogo from "../../../assets/images/sena-1.png";
 import "./SideMenu.scss";
-// import "./sidemenu-1minimal.scss";
-// import "./sidemenu-2glassmorphism.scss";
-// import "./sidemenu-3dark.scss";
 
-const MOBILE_MAX = 768;
+const MOBILE_MAX = 512;
 const STORAGE_KEY = "sidemenu:collapsed";
 
 export function SideMenu(props) {
@@ -285,10 +282,7 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
             >
               <Icon name="settings" /> Configuración
             </Menu.Item>
-            <Menu.Divider />
-            {/* <Menu.Item onClick={() => console.log("Logout")}>
-              <Icon name="sign out" /> Cerrar Sesión
-            </Menu.Item> */}
+            <Divider fitted />            
           </div>
         )}
       </div>
