@@ -3,7 +3,7 @@ import { BASE_API } from "../utils/constants";
 
 // Generar acta desde el audio de la sesión
 export async function generarActaApi(sessionId, token) {
-  const url = `${BASE_API}/api/sessions/${sessionId}/generar_acta/`;
+  const url = `${BASE_API}/sessions/${sessionId}/generar_acta/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {

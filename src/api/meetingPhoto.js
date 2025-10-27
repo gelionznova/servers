@@ -3,7 +3,7 @@ import { BASE_API } from "../utils/constants";
 
 // Obtener fotos de una reunión
 export async function getMeetingPhotosApi(meetingId, token) {
-  const url = `${BASE_API}/api/photos/?meeting=${meetingId}`;
+  const url = `${BASE_API}/photos/?meeting=${meetingId}`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -13,7 +13,7 @@ export async function getMeetingPhotosApi(meetingId, token) {
 
 // Subir foto/s (FormData con { meeting, image })
 export async function addMeetingPhotoApi(formData, token) {
-  const url = `${BASE_API}/api/photos/`;
+  const url = `${BASE_API}/photos/`;
   const res = await fetch(url, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -25,7 +25,7 @@ export async function addMeetingPhotoApi(formData, token) {
 
 // Eliminar foto
 export async function deletePhotoApi(id, token) {
-  const url = `${BASE_API}/api/photos/${id}/`;
+  const url = `${BASE_API}/photos/${id}/`;
   const res = await fetch(url, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },

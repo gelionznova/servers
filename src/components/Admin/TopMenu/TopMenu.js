@@ -28,7 +28,8 @@ export function TopMenu() {
             Hola, {renderName()}!
           </Menu.Item>
           <Menu.Item onClick={logout}>
-            <Icon name="sign-out" />
+            <Icon name="sign out" />
+            <span>Salir</span>
           </Menu.Item>
         </Menu.Menu>
       </Menu>

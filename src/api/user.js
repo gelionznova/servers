@@ -2,7 +2,7 @@
 
 // export async function loginApi(formValue) {
 //   try {
-//     const url = `${BASE_API}/api/auth/login/`;
+//     const url = `${BASE_API}/auth/login/`;
 //     const params = {
 //       method: "POST",
 //       headers: {
@@ -26,7 +26,7 @@
 
 // export async function getMeApi(token) {
 //   try {
-//     const url = `${BASE_API}/api/auth/me/`;
+//     const url = `${BASE_API}/auth/me/`;
 //     const params = {
 //       headers: {
 //         Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@
 
 // export async function getUsersApi(token) {
 //   try {
-//     const url = `${BASE_API}/api/users/`;
+//     const url = `${BASE_API}/users/`;
 //     const params = {
 //       headers: {
 //         Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@
 
 // export async function addUserApi(data, token) {
 //   try {
-//     const url = `${BASE_API}/api/users/`;
+//     const url = `${BASE_API}/users/`;
 //     const params = {
 //       method: "POST",
 //       headers: {
@@ -79,7 +79,7 @@
 
 // export async function updateUserApi(id, data, token) {
 //   try {
-//     const url = `${BASE_API}/api/users/${id}/`;
+//     const url = `${BASE_API}/users/${id}/`;
 //     const params = {
 //       method: "PATCH",
 //       headers: {
@@ -99,7 +99,7 @@
 
 // export async function deleteUserApi(id, token) {
 //   try {
-//     const url = `${BASE_API}/api/users/${id}/`;
+//     const url = `${BASE_API}/users/${id}/`;
 //     const params = {
 //       method: "DELETE",
 //       headers: {
@@ -118,7 +118,7 @@
 // // api/user.js
 // export async function getUserStatusApi(id, token) {
 //   try {
-//     const url = `${BASE_API}/api/users/status/${id}/`;
+//     const url = `${BASE_API}/users/status/${id}/`;
 //     const params = {
 //       headers: {
 //         Authorization: `Bearer ${token}`,
@@ -138,7 +138,7 @@ import { BASE_API } from "../utils/constants";
 
 export async function loginApi(formValue) {
   try {
-    const url = `${BASE_API}/api/auth/login/`;
+    const url = `${BASE_API}/auth/login/`;
     const params = {
       method: "POST",
       headers: {
@@ -162,7 +162,7 @@ export async function loginApi(formValue) {
 
 export async function getMeApi(token) {
   try {
-    const url = `${BASE_API}/api/auth/me/`;
+    const url = `${BASE_API}/auth/me/`;
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -180,7 +180,7 @@ export async function getMeApi(token) {
 // Actualizar perfil del usuario (incluyendo avatar)
 export async function updateProfileApi(data, token) {
   try {
-    const url = `${BASE_API}/api/auth/me/`;
+    const url = `${BASE_API}/auth/me/`;
     const formData = new FormData();
 
     // Agregar todos los campos al FormData
@@ -209,7 +209,7 @@ export async function updateProfileApi(data, token) {
 // Cambiar contraseña
 export async function changePasswordApi(passwords, token) {
   try {
-    const url = `${BASE_API}/api/auth/change-password/`;
+    const url = `${BASE_API}/auth/change-password/`;
     const params = {
       method: "POST",
       headers: {
@@ -235,7 +235,7 @@ export async function changePasswordApi(passwords, token) {
 // Eliminar avatar del usuario actual
 export async function deleteAvatarApi(token) {
   try {
-    const url = `${BASE_API}/api/auth/me/`;
+    const url = `${BASE_API}/auth/me/`;
     const params = {
       method: "DELETE",
       headers: {
@@ -253,7 +253,7 @@ export async function deleteAvatarApi(token) {
 
 export async function getUsersApi(token) {
   try {
-    const url = `${BASE_API}/api/users/`;
+    const url = `${BASE_API}/users/`;
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -269,7 +269,7 @@ export async function getUsersApi(token) {
 
 export async function addUserApi(data, token) {
   try {
-    const url = `${BASE_API}/api/users/`;
+    const url = `${BASE_API}/users/`;
     const formData = new FormData();
 
     // Convertir data a FormData para soportar archivos
@@ -297,7 +297,7 @@ export async function addUserApi(data, token) {
 
 export async function updateUserApi(id, data, token) {
   try {
-    const url = `${BASE_API}/api/users/${id}/`;
+    const url = `${BASE_API}/users/${id}/`;
     const formData = new FormData();
 
     // Convertir data a FormData para soportar archivos
@@ -325,7 +325,7 @@ export async function updateUserApi(id, data, token) {
 
 export async function deleteUserApi(id, token) {
   try {
-    const url = `${BASE_API}/api/users/${id}/`;
+    const url = `${BASE_API}/users/${id}/`;
     const params = {
       method: "DELETE",
       headers: {
@@ -345,7 +345,7 @@ export async function deleteUserApi(id, token) {
 // Eliminar avatar de un usuario específico (admin)
 export async function deleteUserAvatarApi(userId, token) {
   try {
-    const url = `${BASE_API}/api/users/${userId}/delete_avatar/`;
+    const url = `${BASE_API}/users/${userId}/delete_avatar/`;
     const params = {
       method: "POST",
       headers: {
@@ -363,7 +363,7 @@ export async function deleteUserAvatarApi(userId, token) {
 
 export async function getUserStatusApi(id, token) {
   try {
-    const url = `${BASE_API}/api/users/status/${id}/`;
+    const url = `${BASE_API}/users/status/${id}/`;
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,

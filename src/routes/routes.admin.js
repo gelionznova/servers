@@ -11,49 +11,49 @@ import {
 
 const routesAdmin = [
   {
-    path: "/admin",
+    path: "/app",
     layout: AdminLayout,
     component: HomesAdmin,
     exact: true,
   },
 
   {
-    path: "/meetings",
+    path: "/app/meetings",
     layout: AdminLayout,
     component: MeetingsAdmin,
     exact: true,
   },
 
   {
-    path: "/users",
+    path: "/app/users",
     layout: AdminLayout,
     component: UsersAdmin,
     exact: true,
   },
 
   {
-    path: "/actas",
+    path: "/app/actas",
     layout: AdminLayout,
     component: ActasAdmin, // Assuming you meant to use UsersAdmin here, change if needed
     exact: true,
   },
 
   {
-    path: "/settings",
+    path: "/app/settings",
     layout: AdminLayout,
     component: SettingsAdmin, // Assuming you meant to use UsersAdmin here, change if needed
     exact: true,
   },
 
   {
-    path: "/supports",
+    path: "/app/supports",
     layout: AdminLayout,
     component: SupportsAdmin, // Assuming you meant to use UsersAdmin here, change if needed
     exact: true,
   },
 
   {
-    path: "/actas/:sessionId/editar",
+    path: "/app/actas/:sessionId/editar",
     layout: AdminLayout,
     component: ActaEditorPage, // Assuming you meant to use UsersAdmin here, change if needed
     exact: true,

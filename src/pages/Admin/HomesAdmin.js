@@ -107,10 +107,10 @@ export function HomesAdmin() {
         {/* Accesos rápidos */}
         <div className="home-dashboard-card">
           <h3>⚡ Accesos Rápidos</h3>
-          <button onClick={() => navigate("/meetings")}>
+          <button onClick={() => navigate("/app/meetings")}>
             ➕ Nueva Reunión
           </button>
-          <button onClick={() => navigate("/actas")}>
+          <button onClick={() => navigate("/app/actas")}>
             📄 Generar Acta
           </button>
         </div>

@@ -12,16 +12,15 @@ export function SideMenu(props) {
   const { children } = props;
   const { pathname } = useLocation();
 
-  // Inicializa colapsado desde localStorage; en móvil forzamos colapsado
-  const [isMobile, setIsMobile] = useState(
-    () => window.innerWidth <= MOBILE_MAX
-  );
+  // Detecta móvil y estado colapsado inicial
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= MOBILE_MAX);
   const [collapsed, setCollapsed] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     const initial = saved === "true";
     return window.innerWidth <= MOBILE_MAX ? true : initial;
   });
 
+  // Resize -> forzar colapsado en móvil
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= MOBILE_MAX;
@@ -33,24 +32,21 @@ export function SideMenu(props) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Persistir colapsado en escritorio
+  // Persistir colapsado solo en escritorio
   useEffect(() => {
     if (!isMobile) {
       localStorage.setItem(STORAGE_KEY, String(collapsed));
     }
   }, [collapsed, isMobile]);
 
-  // Evitar scroll del body cuando el menú esté abierto en móvil
+  // Evitar scroll body cuando el drawer móvil está abierto
   useEffect(() => {
-    if (isMobile && !collapsed) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (isMobile && !collapsed) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
     return () => (document.body.style.overflow = "");
   }, [isMobile, collapsed]);
 
-  // Cerrar con ESC en móvil
+  // Cerrar con Escape en móvil
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape" && isMobile && !collapsed) setCollapsed(true);
@@ -65,7 +61,7 @@ export function SideMenu(props) {
         isMobile ? "mobile" : "desktop"
       }`}
     >
-      {/* Backdrop para móvil cuando el menú está abierto */}
+      {/* Backdrop cuando el drawer móvil está abierto */}
       {isMobile && !collapsed && (
         <button
           aria-label="Cerrar menú"
@@ -104,10 +100,10 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
   const getInitials = () => {
     const firstName = auth?.me?.first_name || "";
     const lastName = auth?.me?.last_name || "";
-    if (firstName || lastName)
-      return `${firstName[0] || ""}${lastName[0] || ""}`.toUpperCase() || "U";
+    if (firstName || lastName) {
+      return (`${firstName[0] || ""}${lastName[0] || ""}`.toUpperCase()) || "U";
+    }
     return auth?.me?.email ? auth.me.email[0].toUpperCase() : "U";
-    // Fallback
   };
 
   const getFullName = () => {
@@ -119,23 +115,17 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
 
   const menuItems = useMemo(
     () => [
-      {
-        key: "home",
-        to: "/admin",
-        icon: "home",
-        label: "Inicio",
-        color: "blue",
-      },
+      { key: "home", to: "/app", icon: "home", label: "Inicio", color: "blue" },
       {
         key: "meetings",
-        to: "/meetings",
+        to: "/app/meetings",
         icon: "calendar alternate outline",
         label: "Reuniones",
         color: "green",
       },
       {
         key: "actas",
-        to: "/actas",
+        to: "/app/actas",
         icon: "file alternate outline",
         label: "Actas",
         color: "purple",
@@ -150,7 +140,7 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
         ? [
             {
               key: "users",
-              to: "/users",
+              to: "/app/users",
               icon: "users",
               label: "Usuarios",
               color: "orange",
@@ -159,7 +149,7 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
         : []),
       {
         key: "supports",
-        to: "/supports",
+        to: "/app/supports",
         icon: "life ring outline",
         label: "Soporte",
         color: "teal",
@@ -168,7 +158,14 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
     [auth?.me?.is_staff]
   );
 
-  const isActivePath = (to) => pathname === to || pathname.startsWith(`${to}/`);
+  const isActivePath = (to) => {
+    if (to === "/app") {
+      // Home sólo activo en la raíz del panel
+      return pathname === "/app" || pathname === "/app/";
+    }
+    // El resto activo si coincide exacto o es prefijo
+    return pathname === to || pathname.startsWith(`${to}/`);
+  };
 
   const MenuItem = ({ item }) => {
     const isActive = isActivePath(item.to);
@@ -181,7 +178,7 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
         className={`menu-item ${isActive ? "active" : ""}`}
         onClick={(e) => {
           if (item.action) item.action(e);
-          if (isMobile) setCollapsed(true); // Autocerrar en móvil al navegar
+          if (isMobile) setCollapsed(true); // autocerrar en móvil
         }}
         aria-current={isActive ? "page" : undefined}
         title={collapsed ? item.label : undefined}
@@ -194,26 +191,17 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
       </Menu.Item>
     );
 
-    if (collapsed) {
-      return (
-        <Popup
-          trigger={content}
-          content={item.label}
-          position="right center"
-          size="mini"
-          inverted
-        />
-      );
-    }
-    return content;
+    // Tooltip cuando está colapsado
+    return collapsed ? (
+      <Popup trigger={content} content={item.label} position="right center" size="mini" inverted />
+    ) : (
+      content
+    );
   };
 
   return (
-    <nav
-      className={`side ${collapsed ? "collapsed" : ""}`}
-      aria-label="Barra lateral de navegación"
-    >
-      {/* Botón flotante de colapsar/expandir */}
+    <nav className={`side ${collapsed ? "collapsed" : ""}`} aria-label="Barra lateral de navegación">
+      {/* Botón flotante colapsar/expandir */}
       <div className="toggle-button">
         <button
           className="toggle-icon"
@@ -235,18 +223,13 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
           title="Cuenta"
         >
           {auth?.me?.avatar_url ? (
-            <Image
-              src={auth.me.avatar_url}
-              alt="Avatar de usuario"
-              circular
-              className="user-avatar-image"
-            />
+            <Image src={auth.me.avatar_url} alt="Avatar de usuario" circular className="user-avatar-image" />
           ) : (
             <div className="user-avatar-initials" aria-hidden="true">
               <span>{getInitials()}</span>
             </div>
           )}
-          <span className="sr-only">Abrir menú de usuario</span>
+          <span className="sr-only">Abrir menu de usuario</span>
           <div className="online-status" />
         </button>
 
@@ -268,19 +251,11 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
 
         {!collapsed && showUserMenu && (
           <div className="user-dropdown-menu" role="menu">
-            <Menu.Item
-              as={Link}
-              to="/profile"
-              onClick={() => setShowUserMenu(false)}
-            >
-              <Icon name="user" /> Mi Perfil
+            <Menu.Item as={Link} to="/app/settings" onClick={() => setShowUserMenu(false)}>
+              <Icon name="user" /> <span>Mi Perfil</span>
             </Menu.Item>
-            <Menu.Item
-              as={Link}
-              to="/settings"
-              onClick={() => setShowUserMenu(false)}
-            >
-              <Icon name="settings" /> Configuración
+            <Menu.Item as={Link} to="/app/settings" onClick={() => setShowUserMenu(false)}>
+              <Icon name="settings" /> <span>Configuración</span>
             </Menu.Item>
             <Divider fitted />            
           </div>
@@ -310,33 +285,14 @@ function MenuLeft({ pathname, collapsed, setCollapsed, isMobile }) {
         </Menu>
       </div>
 
-      <br />
-      <br />
-      <br />
-      <br />
-
-      {/* {!collapsed && (
-        <div className="sidebar-footer" aria-label="Información de versión">
-          <div className="app-version">
-            <small>Meeting v1.0.0</small>
-          </div>
-        </div>
-      )} */}
-
-      <div
-        className={`sidebar-footer ${collapsed ? "compact" : ""}`}
-        aria-label="Información de versión"
-      >
+      {/* Footer con logo y versión */}
+      <div className={`sidebar-footer ${collapsed ? "compact" : ""}`} aria-label="Información de versión">
         <div className="app-version">
-          <img
-            src={SenaLogo}
-            alt="Logo SENA"
-            className="app-logo"
-            loading="lazy"
-          />
+          <img src={SenaLogo} alt="Logo SENA" className="app-logo" loading="lazy" />
           {!collapsed && <small>Actas Inteligentes v1.0.0</small>}
         </div>
       </div>
     </nav>
   );
 }
+

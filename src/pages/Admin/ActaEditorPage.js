@@ -146,7 +146,7 @@ export function ActaEditorPage() {
       });
 
       alert("Acta guardada con éxito.");
-      navigate("/actas");
+      navigate("/app/actas");
     } catch (err) {
       console.error("Error al guardar acta:", err);
       alert(err.message || "Error al guardar el acta.");

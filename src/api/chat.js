@@ -7,7 +7,7 @@ import { BASE_API } from "../utils/constants";
 
 // Obtener todos los threads del usuario
 export async function getChatThreadsApi(token) {
-  const url = `${BASE_API}/api/chat-threads/`;
+  const url = `${BASE_API}/chat-threads/`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -17,7 +17,7 @@ export async function getChatThreadsApi(token) {
 
 // Obtener un thread específico con sus mensajes
 export async function getChatThreadDetailApi(threadId, token) {
-  const url = `${BASE_API}/api/chat-threads/${threadId}/`;
+  const url = `${BASE_API}/chat-threads/${threadId}/`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -27,7 +27,7 @@ export async function getChatThreadDetailApi(threadId, token) {
 
 // Crear un nuevo thread
 export async function createChatThreadApi(data, token) {
-  const url = `${BASE_API}/api/chat-threads/`;
+  const url = `${BASE_API}/chat-threads/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -46,7 +46,7 @@ export async function createChatThreadApi(data, token) {
 
 // Enviar un mensaje en un thread
 export async function sendMessageApi(threadId, message, token) {
-  const url = `${BASE_API}/api/chat-threads/${threadId}/send_message/`;
+  const url = `${BASE_API}/chat-threads/${threadId}/send_message/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -61,7 +61,7 @@ export async function sendMessageApi(threadId, message, token) {
 
 // Marcar mensajes como leídos
 export async function markMessagesAsReadApi(threadId, token) {
-  const url = `${BASE_API}/api/chat-threads/${threadId}/mark_as_read/`;
+  const url = `${BASE_API}/chat-threads/${threadId}/mark_as_read/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -74,7 +74,7 @@ export async function markMessagesAsReadApi(threadId, token) {
 
 // Cerrar un thread (solo admin)
 export async function closeThreadApi(threadId, token) {
-  const url = `${BASE_API}/api/chat-threads/${threadId}/close_thread/`;
+  const url = `${BASE_API}/chat-threads/${threadId}/close_thread/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {

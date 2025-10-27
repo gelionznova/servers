@@ -90,7 +90,7 @@ export function ActasTable({
                   <Button
                   className="generar-acta-btn"
                     as={Link}
-                    to={`/actas/${s.id}/editar`}
+                    to={`/app/actas/${s.id}/editar`}
                     size="mini"
                     color="blue"
                     disabled={s.acta_status !== "generated"}

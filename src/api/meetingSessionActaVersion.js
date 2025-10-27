@@ -3,7 +3,7 @@ import { BASE_API } from "../utils/constants";
 
 // Obtener todas las versiones de acta de una sesión
 export async function fetchActaVersions(sessionId, token) {
-  const url = `${BASE_API}/api/acta-versions/?session=${sessionId}`;
+  const url = `${BASE_API}/acta-versions/?session=${sessionId}`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -13,7 +13,7 @@ export async function fetchActaVersions(sessionId, token) {
 
 // Crear una nueva versión de acta
 export async function createActaVersion(sessionId, actaData, token) {
-  const url = `${BASE_API}/api/acta-versions/`;
+  const url = `${BASE_API}/acta-versions/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -31,7 +31,7 @@ export async function createActaVersion(sessionId, actaData, token) {
 
 // Actualizar versión existente de acta
 export async function updateActaVersion(versionId, actaData, token) {
-  const url = `${BASE_API}/api/acta-versions/${versionId}/`;
+  const url = `${BASE_API}/acta-versions/${versionId}/`;
   const res = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -56,7 +56,7 @@ export async function updateActaVersion(versionId, actaData, token) {
 
 // (Nuevo) Descargar .docx de una versión de acta
 export async function downloadActaDocx(versionId, token) {
-  const url = `${BASE_API}/api/acta-versions/${versionId}/descargar_word/`;
+  const url = `${BASE_API}/acta-versions/${versionId}/descargar_word/`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });

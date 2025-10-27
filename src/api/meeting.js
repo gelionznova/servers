@@ -3,7 +3,7 @@ import { BASE_API } from "../utils/constants";
 
 // Obtener todas las reuniones
 export async function getMeetingsApi(token) {
-  const url = `${BASE_API}/api/meetings/`;
+  const url = `${BASE_API}/meetings/`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -13,7 +13,7 @@ export async function getMeetingsApi(token) {
 
 // Crear reunión
 export async function addMeetingApi(data, token) {
-  const url = `${BASE_API}/api/meetings/`;
+  const url = `${BASE_API}/meetings/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -28,7 +28,7 @@ export async function addMeetingApi(data, token) {
 
 // Actualizar reunión (partial)
 export async function updateMeetingApi(id, data, token) {
-  const url = `${BASE_API}/api/meetings/${id}/`;
+  const url = `${BASE_API}/meetings/${id}/`;
   const res = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -43,7 +43,7 @@ export async function updateMeetingApi(id, data, token) {
 
 // Eliminar reunión
 export async function deleteMeetingApi(id, token) {
-  const url = `${BASE_API}/api/meetings/${id}/`;
+  const url = `${BASE_API}/meetings/${id}/`;
   const res = await fetch(url, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
@@ -54,7 +54,7 @@ export async function deleteMeetingApi(id, token) {
 
 // (Nuevo) Asignar portada a la reunión
 export async function setCoverPhotoApi(meetingId, photoId, token) {
-  const url = `${BASE_API}/api/meetings/${meetingId}/set_cover_photo/`;
+  const url = `${BASE_API}/meetings/${meetingId}/set_cover_photo/`;
   const res = await fetch(url, {
     method: "POST",
     headers: {

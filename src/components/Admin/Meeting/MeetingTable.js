@@ -135,7 +135,7 @@ export function MeetingTable({
   const handleSetCoverPhoto = async (meetingId, photoId) => {
     try {
       const response = await fetch(
-        `${BASE_API}/api/meetings/${meetingId}/set_cover_photo/`,
+        `${BASE_API}/meetings/${meetingId}/set_cover_photo/`,
         {
           method: "POST",
           headers: {
