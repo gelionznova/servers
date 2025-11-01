@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Menu } from "semantic-ui-react";
+import { Icon, Label, Menu } from "semantic-ui-react";
 import { useAuth } from "../../../hooks";
 // import logo from "../../../assets/images/Logo_04.png";
 import "./TopMenu.scss";
@@ -28,8 +28,7 @@ export function TopMenu() {
             Hola, {renderName()}!
           </Menu.Item>
           <Menu.Item onClick={logout}>
-            <Icon name="sign out" />
-            <span>Salir</span>
+            <Icon name="sign-out" />
           </Menu.Item>
         </Menu.Menu>
       </Menu>

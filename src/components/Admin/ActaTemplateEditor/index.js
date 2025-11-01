@@ -1,1 +1,1 @@
-export * from "./ActaTemplateEditor";
+export { ActaTemplateEditor } from "./ActaTemplateEditor";

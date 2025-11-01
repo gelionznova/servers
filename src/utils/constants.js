@@ -3,6 +3,3 @@
 export const BASE_API = (process.env.REACT_APP_API_BASE || "/api").trim();
 
 export const TOKEN = "token";
-
-// export const BASE_API = "https://74c8vq4h-8000.use.devtunnels.ms";
-// export const TOKEN = "token";

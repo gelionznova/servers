@@ -58,6 +58,14 @@ const routesAdmin = [
     component: ActaEditorPage, // Assuming you meant to use UsersAdmin here, change if needed
     exact: true,
   },
+
+   // ⬇️ CONSOLIDADO (ruta específica)
+  {
+    path: "/app/actas/consolidado/:meetingId",
+    layout: AdminLayout,
+    component: ActaEditorPage,
+    exact: true,
+  },
 ];
 
 export default routesAdmin;

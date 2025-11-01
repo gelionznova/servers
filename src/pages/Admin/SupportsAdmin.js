@@ -772,9 +772,6 @@ export function SupportsAdmin() {
   const renderChat = () => (
     <div className="chat-support">
       <div className="chat-header">
-        <h2>
-          <Icon name="comments" /> Chat de Soporte
-        </h2>
         <Label color="green">
           <Icon name="circle" /> En línea
         </Label>
@@ -788,15 +785,7 @@ export function SupportsAdmin() {
   );
 
   const panes = [
-    {
-      menuItem: (
-        <Menu.Item key="help">
-          <Icon name="book" />
-          Centro de Ayuda
-        </Menu.Item>
-      ),
-      render: () => <Tab.Pane attached={false}>{renderHelpCenter()}</Tab.Pane>,
-    },
+    
     {
       menuItem: (
         <Menu.Item key="chat">
@@ -805,6 +794,15 @@ export function SupportsAdmin() {
         </Menu.Item>
       ),
       render: () => <Tab.Pane attached={false}>{renderChat()}</Tab.Pane>,
+    },
+    {
+      menuItem: (
+        <Menu.Item key="help">
+          <Icon name="book" />
+          Centro de Ayuda
+        </Menu.Item>
+      ),
+      render: () => <Tab.Pane attached={false}>{renderHelpCenter()}</Tab.Pane>,
     },
   ];
 

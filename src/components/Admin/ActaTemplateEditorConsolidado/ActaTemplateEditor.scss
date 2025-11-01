@@ -1,0 +1,380 @@
+/* ActaTemplateEditor.scss */
+
+/* ===== Base ===== */
+.acta-template {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  border: 0px solid #eee;
+  box-shadow: 0 2px 8px #ccc;
+  padding: 32px 18px 40px;
+  border-radius: 0px;
+  font-size: 15px;
+
+  @media (max-width: 700px) {
+    padding: 12px 2vw;
+    font-size: 13px;
+  }
+}
+
+.acta-logo {
+  display: block;
+  margin: 0 auto 15px;
+  max-width: 100px;
+}
+
+/* Tablas generales */
+.acta-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: #fff;
+  margin-bottom: 16px;
+  word-break: break-word;
+
+  @media (max-width: 700px) {
+    font-size: 12px;
+  }
+}
+
+.acta-table th,
+.acta-table td {
+  border: 1.5px solid #222 !important;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+.acta-table th {
+  text-align: center;
+  font-weight: bold;
+  background: #f5f7f6;
+  font-size: 14px;
+}
+
+/* Encabezado */
+.acta-header {
+  background: #e6f6ef;
+  font-size: 17px;
+  text-align: center;
+  font-weight: bold;
+  padding: 8px 0;
+}
+
+.acta-header > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-num,
+.acta-header input[type="text"] {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 60px;
+  margin-left: 10px;
+  border: 0px solid #aaa;
+  border-radius: 0px;
+  background: #f7faf7;
+
+  @media (max-width: 700px) {
+    width: 40px;
+    font-size: 14px;
+  }
+}
+
+.acta-section-header {
+  background: #f6f7f9;
+  font-weight: bold;
+  text-align: center;
+  font-size: 15px;
+  padding: 7px 0;
+}
+
+.editable-cell { background: #f5f8fa; }
+.acta-editable:focus { outline: 2px solid #2684ff; 
+  background: #fffbe9;  
+}
+
+/* Botones */
+.eliminar-btn,
+.add-btn {
+  background: #eee;
+  border: 1px solid #bbb;
+  border-radius: 0px;
+  font-size: 13px;
+  padding: 3px 10px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+.eliminar-btn:hover,
+.add-btn:hover { background: #ffdada; }
+
+.add-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 0 12px;
+}
+
+.agenda-btn { margin-left: 7px; }
+
+/* Inputs por defecto en pantalla */
+input[type="text"],
+input:not([type]),
+input {
+  width: 100%;                  /* 100% para no pelear con colgroup */
+  padding: 4px 5px;
+  font-size: 14px;
+  border: 0px solid #bbb;
+  border-radius: 5px;
+  background: #fcfcfc;
+  margin-bottom: 2px;
+  box-sizing: border-box;
+
+  @media (max-width: 700px) {
+    font-size: 12px;
+  }
+}
+
+/* Elementos que no deben imprimirse (clase de utilidad) */
+.no-print {}
+
+/* Responsive table */
+@media (max-width: 700px) {
+  .acta-table,
+  .acta-table th,
+  .acta-table td {
+    font-size: 12px !important;
+    padding: 4px 3px;
+  }
+  .header-num,
+  .acta-header input[type="text"] { width: 40px; font-size: 14px; }
+  .add-btn-row { flex-direction: column; align-items: flex-end; }
+}
+
+/* Mejor separación */
+.acta-table tr > td,
+.acta-table tr > th { min-width: 100px; }
+
+.acta-table-wrap { width: 100%; overflow-x: auto; }
+
+@media (max-width: 480px) {
+  .acta-table th,
+  .acta-table td { font-size: 11px !important; padding: 2px 1px; }
+  .acta-header { font-size: 14px; padding: 5px 0; }
+}
+
+/* Por defecto en pantalla: solo se ve el input */
+.only-print { display: none; }
+
+/* ===== Ajustes específicos de tablas con colgroup ===== */
+.compromisos-table,
+.asistentes-table {
+  table-layout: fixed;        /* respeta anchos del <colgroup> */
+  width: 100%;
+}
+
+/* Inputs dentro de celdas: ocupar todo el ancho real */
+.acta-table td > input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;                  /* evita que empuje la grilla */
+}
+
+/* Observación: permitir corte de palabras largo sin romper layout */
+.asistentes-table td:nth-child(4) {
+  word-break: break-word;
+}
+
+/* Evitar que las filas se partan entre páginas */
+.compromisos-table tr,
+.asistentes-table tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* ===== PRINT (unificado) ===== */
+@media print {
+  /* Ocultar elementos de UI */
+  .no-print,
+  .eliminar-btn,
+  .add-btn { display: none !important; }
+
+  /* Contenedor sin sombras ni márgenes en papel */
+  .acta-template {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .acta-table { margin-bottom: 10px; }
+
+  /* Mostrar texto en lugar de inputs si usas el wrapper PrintInput (opcional) */
+  .print-input-wrap input { display: none !important; }
+  .print-input-wrap .only-print { display: inline !important; }
+
+  /* Fallback por si queda algún input suelto: que se vea “plano” */
+  input,
+  textarea,
+  select {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+  }
+
+  /* Pero dentro de celdas queremos que sigan ocupando toda la celda */
+  .acta-table td > input {
+    width: 100% !important;
+    padding: 2px 4px !important; /* padding reducido para que no “salte” */
+  }
+
+  /* ContentEditable sin borde ni sombreado */
+  .acta-editable {
+  min-height: 100px;
+  padding: 8px;
+  outline: 1px dashed #ddd;
+  background: #fafafa;
+  
+  &:focus {
+    outline: 2px solid #2684ff;
+    background: #fff;
+  }
+  
+  &:empty:before {
+    content: attr(data-placeholder);
+    color: #999;
+  }
+}
+
+  /* Bordes de tabla nítidos */
+  .acta-table,
+  .acta-table th,
+  .acta-table td {
+    border-color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Listas dentro de celdas */
+  .acta-table ol,
+  .acta-table ul {
+    margin: 0 0 0 20px !important;
+    padding: 0 !important;
+  }
+
+  /* Número de acta sin borde */
+  .header-num,
+  .acta-header input[type="text"] {
+    border: none !important;
+    margin-left: 0 !important;
+    background: transparent !important;
+  }
+}
+
+
+
+
+
+/* ====== Anexos (galería) ====== */
+
+.anexos-table td { padding: 8px; }
+
+.annex-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.annex-toolbar .btn {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.annex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  counter-reset: annex;
+}
+.annex-item {
+  position: relative;
+  border: 1px solid #333;
+  padding: 6px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  background: #fff;
+}
+.annex-item img {
+  width: 100%;
+  height: 210px;
+  object-fit: contain;
+  display: block;
+}
+.annex-item figcaption {
+  margin-top: 4px;
+  font-size: 12px;
+  text-align: center;
+}
+.annex-delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #fff;
+  border: 1px solid #333;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.annex-empty {
+  padding: 12px;
+  text-align: center;
+  color: #666;
+  border: 1px dashed #bbb;
+}
+
+/* PRINT */
+@media print {
+  .annex-toolbar, .annex-delete { display: none !important; }
+  .annex-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 por fila para mejor legibilidad */
+    gap: 10px;
+  }
+  .annex-item { border-color: #000; }
+  .annex-item img { height: 280px; }
+}
+
+.acta-table compromisos-table th-fecha{
+  text-align: center;
+}
+.th-fecha .sub {
+  display: block;
+  white-space: nowrap;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 2px;
+
+}
+  
+

@@ -1,9 +1,12 @@
-export * from "./LoginForm";
-export * from "./TopMenu";
-export * from "./SideMenu";
-export * from "./HeaderPage";
+// src/components/Admin/index.js
+export { LoginForm } from "./LoginForm";
+export { TopMenu } from "./TopMenu";
+export { SideMenu } from "./SideMenu";
+export { HeaderPage } from "./HeaderPage";
 export * from "./Users";
-
 export * from "./Meeting";
-export * from "./ActasTable";
-export * from "./ActaTemplateEditor";
+export { ActasTable } from "./ActasTable";
+
+// 🔒 Exporta explícito los editores, evita export * en cascada
+export { ActaTemplateEditor } from "./ActaTemplateEditor";
+export { ActaTemplateEditorConsolidado } from "./ActaTemplateEditorConsolidado";

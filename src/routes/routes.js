@@ -6,7 +6,6 @@ const routes = [
   ...routesAdmin,
 
   {
-    path: "*",
     layout: BasicLayout,
     component: Error404,
   },
